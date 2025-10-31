@@ -1,15 +1,21 @@
-import { createMemoryHistory, createRouter } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 
-import HomeView from '../pages/HomeView.vue';
-import LoginView from '../pages/LoginView.vue';
+import Home from '../pages/HomeView.vue';
+import Login from '../pages/LoginView.vue';
+import ProjectsView from '../pages/ProjectsView.vue';
+import TasksView from '../pages/TasksView.vue';
+import ColaboratorView from '../pages/ColaboratorsView.vue';
 
 const routes = [
-  { path: '/', component: LoginView },
-  { path: '/home', component: HomeView },
+  { path: "/login", component: Login, meta: { hideSideBar: true } },
+  { path: "/", component: Home },
+  { path: "/projetos", component: ProjectsView },
+  { path: "/tarefas", component: TasksView },
+  { path: "/colaboradores", component: ColaboratorView },
 ]
 
-export const router = createRouter({
-  history: createMemoryHistory(),
+const router = createRouter({
+  history: createWebHashHistory(),
   routes,
 })
 

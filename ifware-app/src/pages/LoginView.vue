@@ -4,14 +4,12 @@
         <hr>
         <input type="text" id="username" name="username" placeholder="Usuário" />
         <input type="password" id="password" name="password" placeholder="Senha" />
-        <button type="submit">Entrar</button>
-        <a href="">Esqueceu a senha?</a>
+        <button type="button"><router-link to="/" class="btn-entrar">Entrar</router-link></button>
+        <a class="link-esqueci" href="">Esqueceu a senha?</a>
     </form>
-    
 </template>
     
 <script>
-
 export default {
     name: 'LoginView',
     components:{
@@ -20,11 +18,12 @@ export default {
 </script>
 
 <style scoped>
+
 form {
     display: flex;
     flex-direction: column;
     width: 500px;
-    height: auto;
+    height: 100%;
     border: 1px solid #ccc;
     border-radius: 10px;
     display: flex;
@@ -47,7 +46,7 @@ input {
     border-radius: 5px;
     border: 1px solid #ccc;
     padding: 10px;
-    height: 25px;
+    height: 40px;
 }
 input:focus {
     outline: none;
@@ -59,30 +58,36 @@ button {
     height: 30px;
     margin: 10px auto;
     border-radius: 5px;
-    border: none;
-    background-color: #213547;
-    color: white;
+    border: 1px solid var(--azul-escuro);
+    color: #213547;
     font-weight: bold;
     cursor: pointer;
     text-transform: uppercase;
 }
 
 button:hover {
-    background-color: #2c3e50;
+    background-color: var(--azul-escuro);
+    color: var(--branco);
 }
 
 hr {
     width: 80%;
     margin-bottom: 20px;
 }
-a {
+.link-esqueci {
     margin-bottom: 10px;
     color: #213547;
     text-decoration: none;
-    align-items: start;
 }
-
-a:hover {
+.link-esqueci:hover {
     text-decoration: underline;
 }
+.btn-entrar {
+    text-decoration: none;
+    color: var(--azul-escuro);
+}
+.btn-entrar:hover {
+    color: var(--branco);
+}
+
 </style>
