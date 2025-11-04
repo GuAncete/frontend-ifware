@@ -11,17 +11,17 @@ export default {
 </script>
 
 <style>
-    footer {
-  position: fixed;
-  bottom: 0;
+footer {
   width: 100%;
   text-align: center;
-  height: auto;
-  padding: 10px;
+  padding: 12px 16px;
   background-color: var(--azul-profundo);
+  margin-top: auto;
 }
+
 footer p {
   color: var(--branco);
   font-size: 14px;
+  margin: 0;
 }
 </style>

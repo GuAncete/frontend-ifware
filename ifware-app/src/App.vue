@@ -1,9 +1,16 @@
 <template>
-  <router-view />
-  <SideBar v-if="!$route.meta || !$route.meta.hideSideBar" />
-  <Footer />
+  <div class="app-shell">
+    <div class="content" :class="{ 'no-sidebar': !showSidebar }">
+  <SideBar v-if="showSidebar" />
+      <main class="page">
+        <router-view />
+      </main>
+    </div>
+    <Footer />
+  </div>
+  
 </template>
-<script >
+<script>
 import Footer from './components/Footer.vue';
 import SideBar from './components/Sidebar.vue';
 export default {
@@ -12,29 +19,26 @@ export default {
     Footer,
     SideBar,
   },
-
-  methods:{
-    onClick($evt){
-      console.log("clicou", $evt);
-    }
+  computed: {
+    showSidebar() {
+      return !(this.$route?.meta?.hideSideBar === true)
+    },
   },
 };
 </script>
-<style >
-
+<style>
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-
   /* === Cores principais === */
-  --azul-claro: #4AB0D9;    /* Destaques, botões ativos, ícones interativos */
-  --azul-medio: #1F7DB0;    /* Cor principal da marca, menus, links */
-  --azul-escuro: #0D4F78;   /* Títulos, textos sobre fundo claro */
+  --azul-claro: #4AB0D9; /* Destaques, botões ativos, ícones interativos */
+  --azul-medio: #1F7DB0; /* Cor principal da marca, menus, links */
+  --azul-escuro: #0D4F78; /* Títulos, textos sobre fundo claro */
   --azul-profundo: #092C47; /* Fundo principal ou seções de destaque */
-  --branco: #FFFFFF;        /* Fundo neutro, textos em fundo escuro */
-  --preto:#000000;         /* Textos escuros sobre fundo claro */
+  --branco: #FFFFFF; /* Fundo neutro, textos em fundo escuro */
+  --preto: #000000; /* Textos escuros sobre fundo claro */
 
   /* === Cores de texto === */
   --texto-principal: var(--azul-profundo);
@@ -56,22 +60,50 @@ export default {
   --sombra: rgba(0, 0, 0, 0.1);
 }
 
-*{
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
-#app{
+
+#app {
   width: 100%;
   min-height: 100vh;
-  display: flex;
-  justify-content: center; 
-  align-items: center; 
 }
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--fundo-principal);
+}
+
+.content {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  align-items: start;
+  min-height: 0; /* evita overflow em alguns navegadores */
+}
+
+.content.no-sidebar {
+  grid-template-columns: 1fr;
+}
+
+.page {
+  min-width: 0; /* permite o conteúdo reduzir sem overflow horizontal */
+  padding: 16px;
+}
+
 body {
   min-width: 320px;
   min-height: 100vh;
   background-color: var(--branco);
 }
 
+@media (max-width: 768px) {
+  .content {
+    grid-template-columns: 1fr; /* empilha conteúdo no mobile */
+  }
+}
 </style>

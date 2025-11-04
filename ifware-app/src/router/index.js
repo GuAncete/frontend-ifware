@@ -1,22 +1,67 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import { getToken } from '@/services/auth.js'
 
-import Home from '../pages/HomeView.vue';
-import Login from '../pages/LoginView.vue';
-import ProjectsView from '../pages/ProjectsView.vue';
-import TasksView from '../pages/TasksView.vue';
-import ColaboratorView from '../pages/ColaboratorsView.vue';
 
 const routes = [
-  { path: "/login", component: Login, meta: { hideSideBar: true } },
-  { path: "/", component: Home },
-  { path: "/projetos", component: ProjectsView },
-  { path: "/tarefas", component: TasksView },
-  { path: "/colaboradores", component: ColaboratorView },
+  { path: "/login",
+    name: "Login",
+    component: () => import("../pages/LoginView.vue"),
+    meta: { hideSideBar: true } ,
+  },
+  { path: "/", 
+    name: "Home",
+    component: () => import("../pages/HomeView.vue"),
+    meta: { requiresAuth: true },
+  },
+  { path: "/projetos", 
+    name: "Projects",
+    component: () => import("../pages/ProjectsView.vue"),
+    meta: { requiresAuth: true },
+  },
+  { path: "/tarefas", 
+    name: "Tasks",
+    component: () => import("../pages/TasksView.vue"),
+    meta: { requiresAuth: true },
+  },
+  { path: "/colaboradores",
+    name: "Colaborators",
+    component: () => import("../pages/ColaboratorsView.vue"),
+    meta: { requiresAuth: true },
+  },
 ]
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
+})
+
+// Simple auth guard
+router.beforeEach((to, from, next) => {
+  const token = getToken()
+  const isAuth = !!token
+  const requiresAuth = to.matched.some((record) => record.meta?.requiresAuth)
+
+  if (to.name === 'Login') {
+    if (isAuth) {
+      next({ path: '/' })
+    } else {
+      next()
+    }
+    return
+  }
+
+  if (!isAuth) {
+    const redirect = to.fullPath && to.fullPath !== '/' ? { redirect: to.fullPath } : {}
+    next({ path: '/login', query: redirect, replace: true })
+    return
+  }
+
+  if (requiresAuth || to.matched.length === 0) {
+    next()
+    return
+  }
+
+  next()
 })
 
 export default router;
