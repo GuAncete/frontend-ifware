@@ -1,22 +1,24 @@
 <template>
   <div class="app-shell">
     <div class="content" :class="{ 'no-sidebar': !showSidebar }">
-  <SideBar v-if="showSidebar" />
+      <SideBar v-if="showSidebar" />
       <main class="page">
         <router-view />
       </main>
     </div>
-    <Footer />
+
+
+    <footer>
+      <p>&copy; Copyright 2025 - Todos os direitos reservados. Desenvolvido por IFWare</p>
+    </footer>
   </div>
-  
+
 </template>
 <script>
-import Footer from './components/Footer.vue';
 import SideBar from './components/Sidebar.vue';
 export default {
   name: 'App',
   components: {
-    Footer,
     SideBar,
   },
   computed: {
@@ -33,12 +35,18 @@ export default {
   font-weight: 400;
 
   /* === Cores principais === */
-  --azul-claro: #4AB0D9; /* Destaques, botões ativos, ícones interativos */
-  --azul-medio: #1F7DB0; /* Cor principal da marca, menus, links */
-  --azul-escuro: #0D4F78; /* Títulos, textos sobre fundo claro */
-  --azul-profundo: #092C47; /* Fundo principal ou seções de destaque */
-  --branco: #FFFFFF; /* Fundo neutro, textos em fundo escuro */
-  --preto: #000000; /* Textos escuros sobre fundo claro */
+  --azul-claro: #4AB0D9;
+  /* Destaques, botões ativos, ícones interativos */
+  --azul-medio: #1F7DB0;
+  /* Cor principal da marca, menus, links */
+  --azul-escuro: #0D4F78;
+  /* Títulos, textos sobre fundo claro */
+  --azul-profundo: #092C47;
+  /* Fundo principal ou seções de destaque */
+  --branco: #FFFFFF;
+  /* Fundo neutro, textos em fundo escuro */
+  --preto: #000000;
+  /* Textos escuros sobre fundo claro */
 
   /* === Cores de texto === */
   --texto-principal: var(--azul-profundo);
@@ -47,7 +55,8 @@ export default {
 
   /* === Fundos === */
   --fundo-principal: var(--branco);
-  --fundo-secundario: #F5F9FC; /* tom suave para seções alternadas */
+  --fundo-secundario: #F5F9FC;
+  /* tom suave para seções alternadas */
   --fundo-escuro: var(--azul-profundo);
 
   /* === Botões === */
@@ -75,35 +84,42 @@ export default {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: var(--fundo-principal);
 }
 
 .content {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+.page{
   flex: 1;
-  display: grid;
-  grid-template-columns: 260px 1fr;
-  align-items: start;
-  min-height: 0; /* evita overflow em alguns navegadores */
+  padding: 16px;
+  width: 100%;
+  height: 100%;
 }
 
 .content.no-sidebar {
-  grid-template-columns: 1fr;
+  flex-direction: column;
 }
 
-.page {
-  min-width: 0; /* permite o conteúdo reduzir sem overflow horizontal */
-  padding: 16px;
+footer {
+  width: 100%;
+  text-align: center;
+  padding: 12px 16px;
+  background-color: var(--azul-profundo);
+  margin-top: auto;
 }
 
-body {
-  min-width: 320px;
-  min-height: 100vh;
-  background-color: var(--branco);
+footer p {
+  color: var(--branco);
+  font-size: 14px;
+  margin: 0;
 }
 
 @media (max-width: 768px) {
   .content {
-    grid-template-columns: 1fr; /* empilha conteúdo no mobile */
+    grid-template-columns: 1fr;
+    /* empilha conteúdo no mobile */
   }
 }
 </style>

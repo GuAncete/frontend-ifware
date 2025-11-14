@@ -1,12 +1,15 @@
 <template>
   <div class="projects">
-        <h1>Welcome to the Projects Page</h1>
-    </div>
+    <ProjectsCrud />
+  </div>
 </template>
 
 <script>
+import ProjectsCrud from '@/components/ProjectsCrud.vue'
 export default {
-
+  components: {
+    ProjectsCrud,
+  },
 }
 </script>
 

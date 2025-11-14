@@ -28,6 +28,16 @@ const routes = [
     component: () => import("../pages/ColaboratorsView.vue"),
     meta: { requiresAuth: true },
   },
+  { path: "/clientes",
+    name: "Clients",
+    component: () => import("../pages/ClientesView.vue"),
+    meta: { requiresAuth: true },
+  },
+  { path: "/config",
+    name: "Config",
+    component: () => import("../pages/ConfigView.vue"),
+    meta: { requiresAuth: true },
+  },
 ]
 
 const router = createRouter({

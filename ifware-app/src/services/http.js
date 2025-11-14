@@ -9,6 +9,7 @@ const http = axios.create({
     headers: {
         'Content-Type': 'application/json',
     },
+    withCredentials: false,
 })
 
 // Attach Authorization header if token exists
@@ -18,6 +19,7 @@ http.interceptors.request.use((config) => {
         config.headers = config.headers || {}
         config.headers.Authorization = `Bearer ${token}`
     }
+    
     return config
 })
 
@@ -25,6 +27,18 @@ http.interceptors.request.use((config) => {
 http.interceptors.response.use(
     (res) => res,
     (error) => {
+        // DEBUG: log de 403/401 para facilitar investigação
+        try {
+            if (error?.response) {
+                // eslint-disable-next-line no-console
+                console.warn('[http] Response error', {
+                    status: error.response.status,
+                    url: error.config?.url,
+                    data: error.response.data,
+                })
+            }
+        } catch (_) {}
+
         if (error?.response?.status === 401) {
             clearToken()
             try {

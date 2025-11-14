@@ -21,8 +21,16 @@
                 <router-link to="/tarefas">Tarefas</router-link>
             </li>
             <li>
+                <i class="fa-solid fa-user"></i>
+                <router-link to="/clientes">Clientes</router-link>
+            </li>
+            <li>
                 <i class="fa-solid fa-users"></i>
                 <router-link to="/colaboradores">Colaboradores</router-link>
+            </li>
+            <li>
+                <i class="fa-solid fa-gear"></i>
+                <router-link to="/config">Configurações</router-link>
             </li>
         </ul>
         <button class="btn-logout" @click="logout">Sair</button>
@@ -65,12 +73,12 @@ async function logout() {
     flex-direction: column;
     background: linear-gradient(180deg, var(--azul-profundo) 0%, var(--azul-escuro) 100%);
     padding: 16px 12px;
-    width: 240px;
+    width: 260px; 
     color: var(--texto-invertido);
     box-shadow: 4px 0 18px rgba(0, 0, 0, 0.15);
-    height: 100vh;
-    position: fixed;
+    left: 0;
     top: 0;
+    height: 100vh;
     align-self: flex-start;
     overflow: auto;
 }
