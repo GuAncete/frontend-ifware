@@ -2,7 +2,7 @@ import axios from 'axios'
 import { getToken, clearToken } from '@/services/auth.js'
 
 // Base URL configurável via .env.local (VITE_API_BASE_URL) com fallback para Laravel padrão
-const baseURL = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000/api'
+const baseURL = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:9000/api'
 
 const http = axios.create({
     baseURL,
